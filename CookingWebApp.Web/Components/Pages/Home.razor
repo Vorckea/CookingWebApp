@@ -1,0 +1,58 @@
+﻿@page "/"
+@rendermode InteractiveServer
+@inject RecipeApiClient RecipeApi
+
+<PageTitle>Home</PageTitle>
+
+@if (recipes is not null)
+{
+    <ul>
+        @foreach (var recipe in recipes)
+        {
+            <li>
+                <button @onclick="() => OnClick(recipe.Id)">
+                    <h3>@recipe.Name</h3>
+                    <p>@recipe.Description</p>
+                </button>
+            </li>
+        }
+    </ul>
+}
+
+@if (recipe is not null)
+{
+    <h2>Recipe</h2>
+    <p>@recipe.Name</p>
+    <p>@recipe.Description</p>
+    <p>@recipe.Id</p>
+    <h3>Ingredients</h3>
+    <ul>
+        @foreach (var ingredient in recipe.Ingredients)
+        {
+            <li>
+                <p>@ingredient.Name</p>
+                <p>@ingredient.Quantity</p>
+            </li>
+        }
+    </ul>
+}
+
+@code {
+    private Recipe[]? recipes; 
+
+    protected override async Task OnInitializedAsync()
+    {
+        recipes = await RecipeApi.GetRecipesAsync();
+    }
+
+    private Recipe? recipe;
+
+    private async Task OnClick(int recipeId)
+    {
+        recipe = await RecipeApi.GetRecipeAsync(recipeId);
+        Ingredient[] ingredients = await RecipeApi.GetIngredientAsync(recipeId);
+        recipe.Ingredients = ingredients.ToList();
+        StateHasChanged();
+    }
+
+}

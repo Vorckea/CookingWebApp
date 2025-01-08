@@ -1,0 +1,45 @@
+Microsoft Visual Studio Solution File, Format Version 12.00
+# Visual Studio Version 17
+VisualStudioVersion = 17.12.35527.113
+MinimumVisualStudioVersion = 10.0.40219.1
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "CookingWebApp.AppHost", "CookingWebApp.AppHost\CookingWebApp.AppHost.csproj", "{4F4E6B2A-99AA-4876-BDE4-36CEB5F51E40}"
+EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "CookingWebApp.ServiceDefaults", "CookingWebApp.ServiceDefaults\CookingWebApp.ServiceDefaults.csproj", "{9BFF95DA-D129-43A8-A439-5C8E55F3A60C}"
+EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "CookingWebApp.ApiService", "CookingWebApp.ApiService\CookingWebApp.ApiService.csproj", "{C9D01D8C-8974-4689-9A31-9FFDAD64A2D0}"
+EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "CookingWebApp.Web", "CookingWebApp.Web\CookingWebApp.Web.csproj", "{90A9CDFF-EC8B-49B3-A0D8-CF1D7899532A}"
+EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "CookingWebApp.RecipeService", "CookingWebApp.RecipeService\CookingWebApp.RecipeService.csproj", "{DCD82565-B6D3-46BE-81E9-7E9CC49382E4}"
+EndProject
+Global
+	GlobalSection(SolutionConfigurationPlatforms) = preSolution
+		Debug|Any CPU = Debug|Any CPU
+		Release|Any CPU = Release|Any CPU
+	EndGlobalSection
+	GlobalSection(ProjectConfigurationPlatforms) = postSolution
+		{4F4E6B2A-99AA-4876-BDE4-36CEB5F51E40}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{4F4E6B2A-99AA-4876-BDE4-36CEB5F51E40}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{4F4E6B2A-99AA-4876-BDE4-36CEB5F51E40}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{4F4E6B2A-99AA-4876-BDE4-36CEB5F51E40}.Release|Any CPU.Build.0 = Release|Any CPU
+		{9BFF95DA-D129-43A8-A439-5C8E55F3A60C}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{9BFF95DA-D129-43A8-A439-5C8E55F3A60C}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{9BFF95DA-D129-43A8-A439-5C8E55F3A60C}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{9BFF95DA-D129-43A8-A439-5C8E55F3A60C}.Release|Any CPU.Build.0 = Release|Any CPU
+		{C9D01D8C-8974-4689-9A31-9FFDAD64A2D0}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{C9D01D8C-8974-4689-9A31-9FFDAD64A2D0}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{C9D01D8C-8974-4689-9A31-9FFDAD64A2D0}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{C9D01D8C-8974-4689-9A31-9FFDAD64A2D0}.Release|Any CPU.Build.0 = Release|Any CPU
+		{90A9CDFF-EC8B-49B3-A0D8-CF1D7899532A}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{90A9CDFF-EC8B-49B3-A0D8-CF1D7899532A}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{90A9CDFF-EC8B-49B3-A0D8-CF1D7899532A}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{90A9CDFF-EC8B-49B3-A0D8-CF1D7899532A}.Release|Any CPU.Build.0 = Release|Any CPU
+		{DCD82565-B6D3-46BE-81E9-7E9CC49382E4}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{DCD82565-B6D3-46BE-81E9-7E9CC49382E4}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{DCD82565-B6D3-46BE-81E9-7E9CC49382E4}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{DCD82565-B6D3-46BE-81E9-7E9CC49382E4}.Release|Any CPU.Build.0 = Release|Any CPU
+	EndGlobalSection
+	GlobalSection(SolutionProperties) = preSolution
+		HideSolutionNode = FALSE
+	EndGlobalSection
+EndGlobal

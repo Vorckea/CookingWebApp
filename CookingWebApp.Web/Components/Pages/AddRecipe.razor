@@ -1,0 +1,155 @@
+﻿@page "/add-recipe"
+@rendermode InteractiveServer
+@inject RecipeApiClient RecipeApi
+
+<PageTitle>Create Recipe</PageTitle>
+
+<h1>Create Recipe</h1>
+
+@if (createdRecipe is not null)
+{
+    <h2>Recipe</h2>
+    <p>@createdRecipe.Name</p>
+    <p>@createdRecipe.Description</p>
+    <p>@createdRecipe.Id</p>
+}
+
+<h1>@Status</h1>
+<EditForm Model="@Recipe" OnValidSubmit="@RecipeSubmitted">
+    <h3> Create Recipe</h3>
+    <hr />
+    <div class="form-group row">
+        <label for="name" class="col-sm-2 col-form-label">
+            Name
+        </label>
+        <div class="col-sm-10">
+            <InputText id="name" class="form-control" placeholder="Name"
+            @bind-Value="Recipe.Name" />
+        </div>
+    </div>
+
+    <div class="form-group row">
+        <label for="description" class="col-sm-2 col-form-label">
+            Description
+        </label>
+        <div class="col-sm-10">
+            <InputTextArea id="description" class="form-control" placeholder="Description"
+            @bind-Value="Recipe.Description" />
+        </div>
+    </div>
+
+    <h2>Ingredients</h2>
+    @foreach (Ingredient ingredient in Recipe.Ingredients)
+    {
+        <div class="form-group row">
+
+            <div class="col-sm-6">
+                <InputText class="form-control" placeholder="Ingredient Name"
+                @bind-Value="ingredient.Name" 
+                @onblur="() => OnIngredientBlur(ingredient)"/>
+            </div>
+
+            <div class="col-sm-2">
+                <InputNumber class="form-control" placeholder="Quantity"
+                @bind-Value="ingredient.Quantity"/>
+            </div>
+
+            <div class="col-sm-2">
+                <InputText class="form-control" placeholder="Unit"
+                @bind-Value="ingredient.Unit"/>
+            </div>
+
+            <div class="col-sm-2">
+                <button type="button" class="btn btn-danger" @onclick="() => RemoveItem<Ingredient>(ingredient, Recipe.Ingredients)">Remove</button>
+            </div>
+
+        </div>
+    }
+
+    <h2>Steps</h2>
+    @foreach (Step step in Recipe.Steps)
+    {
+        <div class="form-group row">
+            <div class="col-sm-10">
+                <InputTextArea class="form-control" placeholder="Step"
+                               @bind-Value="step.Description" 
+                               @onblur="() => OnStepBlur(step)"/>
+            </div>
+
+            <div class="col-sm-2">
+                <button type="button" class="btn btn-danger" @onclick="() => RemoveItem<Step>(step, Recipe.Steps)">Remove</button>
+            </div>
+        </div>
+    }
+
+
+    <input class="btn btn-primary" type="submit" value="submit"/>
+</EditForm>
+
+@code {
+    string Status = "Not Submitted";
+    Recipe? createdRecipe = null;
+    Recipe Recipe = new Recipe{ 
+        Ingredients = new List<Ingredient> {new Ingredient()},
+        Steps = new List<Step> {new Step ()}
+    };
+
+    async Task RecipeSubmitted(){
+        Status = "Submitting ...";
+        Recipe.Ingredients = Recipe.Ingredients.Where(IsIngredientValid).ToList();
+        Recipe.Steps = Recipe.Steps.Where(IsStepValid).ToList();
+        await CreateRecipe();
+    }
+
+    async Task CreateRecipe()
+    {
+        try
+        {
+            createdRecipe = await RecipeApi.PostRecipeAsync(Recipe);
+            Status = "Recipe Created";
+        }
+        catch (Exception ex)
+        {
+            Status = ex.Message;
+        }
+    }
+
+    bool IsIngredientValid(Ingredient ingredient)
+    {
+        return !(string.IsNullOrWhiteSpace(ingredient.Name) || string.IsNullOrWhiteSpace(ingredient.Unit) || ingredient.Quantity <= 0);
+    }
+
+    void OnIngredientBlur(Ingredient ingredient)
+    {
+        if (string.IsNullOrWhiteSpace(ingredient.Name) && Recipe.Ingredients.Contains(new Ingredient()))
+        {
+            RemoveItem<Ingredient>(ingredient, Recipe.Ingredients);
+            return;
+        }
+
+        Recipe.Ingredients.Add(new Ingredient());
+    }
+
+    bool IsStepValid(Step step)
+    {
+        return !string.IsNullOrWhiteSpace(step.Description);
+    }
+
+    void OnStepBlur(Step step)
+    {
+        if (string.IsNullOrEmpty(step.Description) && Recipe.Steps.Contains(new Step()))
+        {
+            RemoveItem<Step>(step, Recipe.Steps);
+            return;
+        }
+        Recipe.Steps.Add(new Step());
+    }
+
+    void RemoveItem<T>(T item, List<T> items)
+    {
+        if (items.Count > 1)
+        {
+            items.Remove(item);
+        }
+    }
+}
